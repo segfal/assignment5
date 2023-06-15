@@ -38,6 +38,15 @@ class Grid {
         square.style.backgroundColor = 'white';
         return square;
     } 
+    removeGrid = () => {
+        //remove grid from screen
+        const container = document.getElementById('grid');
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+        this.grid = [];
+    }
+
 
     addRow = (rowNum = 1) => {
         //Add a row of squares to the grid
@@ -57,36 +66,28 @@ class Grid {
 
     addCol = (colNum = 1) => {
         //Add a column of squares to the grid
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < colNum; j++) {
-                let square = this.createSquare('black');
-                document.getElementById('grid').appendChild(square);
-                this.grid[i].push(square);
-            }
-        }
+        ///Erase grid and recreate it with new column
+        this.removeGrid();
         this.cols += colNum;
+        this.createGrid();
+
+
     }
 
     removeRow = (rowNum = 1) => {
         //Remove a row of squares from the grid
-        for (let i = 0; i < rowNum; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                document.getElementById('grid').removeChild(this.grid[this.rows - 1][j]);
-            }
-            this.grid.pop();
-        }
+        this.removeGrid();
         this.rows -= rowNum;
+        this.createGrid();
+
     }
 
     removeCol = (colNum = 1) => {
         //Remove a column of squares from the grid
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < colNum; j++) {
-                document.getElementById('grid').removeChild(this.grid[i][this.cols - 1]);
-                this.grid[i].pop();
-            }
-        }
+        this.removeGrid();
         this.cols -= colNum;
+        this.createGrid();
+
     }
 
 
@@ -100,6 +101,9 @@ class Grid {
 
 const grid = new Grid(10,10);
 grid.addRow(5);
-grid.addCol();
+grid.addCol(5);
+grid.removeRow(10);
+grid.removeCol(15);
+
 //grid.removeRow(5);
 //grid.removeCol(2);
