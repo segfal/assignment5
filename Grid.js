@@ -88,7 +88,7 @@ class Grid {
         }
         this.cols -= colNum;
     }
-    
+
 
 
 
@@ -99,3 +99,7 @@ class Grid {
 
 
 const grid = new Grid(10,10);
+grid.addRow(5);
+grid.addCol();
+//grid.removeRow(5);
+//grid.removeCol(2);
